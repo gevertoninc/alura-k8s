@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: pod-with-two-containers-label
+  name: pod-with-two-containers
+spec:
+  containers:
+    - image: nginx:latest
+      name: nginx-container
+      volumeMounts:
+        - mountPath: /test-volume
+          name: test-volume
+    - image: jenkins/jenkins:lts
+      name: jenkins-container
+      volumeMounts:
+        - mountPath: /test-volume
+          name: test-volume
+  volumes:
+    - hostPath:
+        path: /courses/alura/data
+      name: test-volume

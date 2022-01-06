@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: first-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: first-rs
+  template:
+    metadata:
+      labels:
+        app: first-rs
+      name: first-rs
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: ft-configmap
+          image: nginx:latest
+          name: first-rs-container
+          ports:
+            - containerPort: 80
